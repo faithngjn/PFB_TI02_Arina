@@ -29,7 +29,6 @@ def calculateDifference(Profit_and_loss_data):
     for data in Profit_and_loss_data:
 
         # Extract the day number and net profit values
-        # 
         day = int(data[0])
         netProfit = float(data[4])
 

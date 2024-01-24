@@ -1,7 +1,7 @@
 from pathlib import Path
 import csv
 
-file_path = Path.cwd() / "Profits_And_Loss.csv"
+file_path = Path.cwd() / "csv_reports"/ "Profits_And_Loss.csv"
 
 # Read the data from the file into a list
 with file_path.open(mode="r") as file:

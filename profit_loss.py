@@ -87,9 +87,9 @@ def calculateExtreme(net_profit_deficit):
         if record == 1:
             position = "HIGHEST"
         elif record == 2:
-            position = "2ND"
+            position = "2ND HIGHEST"
         elif record == 3:
-            position = "3RD"
+            position = "3RD HIGHEST"
         else:
             position = f'{record}TH'
 

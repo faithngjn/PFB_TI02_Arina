@@ -140,9 +140,9 @@ def calculateExtreme(net_profit_deficit, surplus):
 
             print(f'[{position} NET PROFIT DEFICIT] DAY: {day} AMOUNT: SGD{amount}')
 
-        # Print the highest net profit surplus
         highest_surplus_day = max(surplus, key=surplus.get)
 
+        # Print the highest net profit surplus
         print(f'[HIGHEST NET PROFIT SURPLUS] DAY: {highest_surplus_day} AMOUNT: SGD{surplus[highest_surplus_day]}')
 
 # Calculate the net profit deficit

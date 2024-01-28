@@ -2,7 +2,7 @@ from pathlib import Path
 import csv
 
 # Create a file path to the csv file.
-file_path = Path.cwd() /"project_group"/"csv_reports"/ "Profits_And_Loss.csv"
+file_path = Path.cwd() / "Profits_And_Loss.csv"
 
 # Read the csv file.
 with file_path.open(mode="r", encoding="UTF-8", newline="") as file:
@@ -93,6 +93,7 @@ def calculateExtreme(net_profit_deficit, surplus):
     # Check if there are only surpluses
     elif surplus and not net_profit_deficit:
 
+        
         print('[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY')
 
         # Print the highest net profit surplus
@@ -105,7 +106,6 @@ def calculateExtreme(net_profit_deficit, surplus):
     else:
         print('[NET PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THAN THE PREVIOUS DAY')
 
-        # Print all net profit deficits sorted by day
         sorted_deficits_by_day = sorted(net_profit_deficit, key=sort_deficits_by_day)
 
         # Iterate through each deficit
@@ -119,7 +119,6 @@ def calculateExtreme(net_profit_deficit, surplus):
 
             print(f'[NET PROFIT DEFICIT] DAY: {day} AMOUNT: SGD{amount}')
 
-        # Print the top three net profit deficits sorted by amount
         sorted_deficits_by_amount = sorted(net_profit_deficit, key=sort_deficits_by_amount, reverse=True)
         
         # Iterate through the top three deficits sorted by amount
@@ -150,3 +149,4 @@ net_profit_deficit, surplus = calculateDifference(Profit_and_loss_data)
 
 # Print the results
 calculateExtreme(net_profit_deficit, surplus)
+

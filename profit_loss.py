@@ -96,7 +96,6 @@ def calculateExtreme(net_profit_deficit, surplus):
         
         print('[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY')
 
-        # Print the highest net profit surplus
         highest_surplus_day = max(surplus, key=surplus.get)
 
         # Print highest net profit surplus
@@ -106,6 +105,7 @@ def calculateExtreme(net_profit_deficit, surplus):
     else:
         print('[NET PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THAN THE PREVIOUS DAY')
 
+        # Sort net profigt deficits
         sorted_deficits_by_day = sorted(net_profit_deficit, key=sort_deficits_by_day)
 
         # Iterate through each deficit

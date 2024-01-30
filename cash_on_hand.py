@@ -58,7 +58,7 @@ def compute_pattern(all_cash_differences):
     for value in range(len(deficit_days)):
         print(f"[CASH DEFICIT] DAY: {all_cash_differences[deficit_days[value]][0]}, AMOUNT: SGD{abs(int(all_cash_differences[deficit_days[value]][1]))}")
     # create list of sorted top 3 from deficit_days and deficit_amounts using zip which is from external research
-    top_3_deficits = sorted(zip(deficit_amounts, deficit_days))[-3:]
+    top_3_deficits = sorted(zip(deficit_amounts, deficit_days))[:3]
     print(f"[HIGHEST CASH DEFICIT] DAY:{all_cash_differences[top_3_deficits[0][1]][0]} AMOUNT: SGD{abs(int(top_3_deficits[0][0]))} ")
     print(f"[2ND HIGHEST CASH DEFICIT] DAY:{all_cash_differences[top_3_deficits[1][1]][0]} AMOUNT: SGD{abs(int(top_3_deficits[1][0]))} ")
     print(f"[3RD HIGHEST CASH DEFICIT] DAY:{all_cash_differences[top_3_deficits[2][1]][0]} AMOUNT: SGD{abs(int(top_3_deficits[2][0]))} ")

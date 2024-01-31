@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-hi = print("testing")
+
 # Create a file path to the csv file.
 fp = Path.cwd() / "project_group"/"csv_reports"/"Cash_On_Hand.csv"
 

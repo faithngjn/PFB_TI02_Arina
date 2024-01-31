@@ -96,6 +96,7 @@ def calculateExtreme(net_profit_deficit, surplus):
         
         print('[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY')
 
+        # Get the highest surplus
         highest_surplus_day = max(surplus, key=surplus.get)
 
         # Print highest net profit surplus
@@ -118,17 +119,20 @@ def calculateExtreme(net_profit_deficit, surplus):
             amount = abs(int(list(deficit.values())[0]))
 
             print(f'[NET PROFIT DEFICIT] DAY: {day} AMOUNT: SGD{amount}')
-
+        
+        # Sort net profit deficits by amount in descending order
         sorted_deficits_by_amount = sorted(net_profit_deficit, key=sort_deficits_by_amount, reverse=True)
         
         # Iterate through the top three deficits sorted by amount
         for record, deficit in enumerate(sorted_deficits_by_amount[:3], start=1):
 
+           # Extract day from dictionary 
             day = list(deficit.keys())[0]
-
+          
+           # Extract the deficit amount from the dictionary
             amount = abs(int(list(deficit.values())[0]))
 
-           
+           # Determine the position label for the deficit record
             position = f'{record}TH'
             if record == 1:
                 position = "HIGHEST"
@@ -139,11 +143,12 @@ def calculateExtreme(net_profit_deficit, surplus):
 
             print(f'[{position} NET PROFIT DEFICIT] DAY: {day} AMOUNT: SGD{amount}')
 
+        highest_surplus_day = max(surplus, key=surplus.get)
+
 
 # Calculate the net profit deficit
 net_profit_deficit, surplus = calculateDifference(Profit_and_loss_data)
 
 # Print the results
 calculateExtreme(net_profit_deficit, surplus)
-
 

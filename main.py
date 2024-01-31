@@ -1,4 +1,4 @@
-import cash_on_hand, overheads, profit_loss
+import coh, overheads, profit_loss
 from pathlib import Path 
 
 overhead_value = overheads.compute_highest()
@@ -9,3 +9,4 @@ with open('summary_report.txt', mode='w') as file:
     file.write(str(overhead_value))
     file.write(str(coh))
     file.write(str(pl))
+

@@ -2,7 +2,7 @@ from pathlib import Path
 import csv
 
 # Create a file path to the csv file.
-file_path = Path.cwd() / "Profits_And_Loss.csv"
+file_path = Path.cwd() / "project_group"/"csv_reports"/ "Profits_And_Loss.csv"
 
 # Read the csv file.
 with file_path.open(mode="r", encoding="UTF-8", newline="") as file:

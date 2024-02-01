@@ -10,8 +10,7 @@ with fp.open(mode="r", encoding="UTF-8", newline="") as file:
     next(reader) # Skip header
 
     # Create an empty list for Overhead_data
-    Overhead_data = []
-    Overhead_name = []
+  
     # Append cash-on-hand data into Overhead_data list
     for row in reader:
         # Get the cash

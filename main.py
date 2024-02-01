@@ -6,6 +6,7 @@ coh = cash_on_hand.compute_pattern()
 pl = profit_loss.calculateExtreme()
 
 with open('summary_report.txt', mode='w') as file:
+    
     file.write(str(overhead_value))
     file.write(str(coh))
     file.write(str(pl))

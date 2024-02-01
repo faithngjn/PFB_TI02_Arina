@@ -15,30 +15,42 @@ with fp_cash.open(mode="r", encoding="UTF-8", newline="") as file:
 # Find the cash difference between all days in data 
 def compute_cash_on_hand_difference(CashRecords): 
     "function determine the difference in cash on hands"   
+ 
     all_cash_differences = [(CashRecords[item][0], CashRecords[item][1] - CashRecords[item - 1][1]) for item in range(1, len(CashRecords))] 
+ 
     return all_cash_differences 
  
 all_cash_differences = compute_cash_on_hand_difference(CashRecords) 
  
 # Find whether cash on hand is always fluctuating/increasing/decreasing 
 def compute_pattern(all_cash_differences): 
+ 
     "function determine the pattern of cash on hand and find the data corresponding to the pattern"   
     if all(value[1] > 0 for value in all_cash_differences): 
+     
         # Cash-on-hand is always increasing 
         highest_increment_day, highest_increment_amount = max(all_cash_differences, key=get_second_element) 
+     
         print("[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY") 
+     
         print(f"[HIGHEST CASH SURPLUS] DAY: {highest_increment_day}, AMOUNT: SGD{abs(int(highest_increment_amount))}.") 
+     
     elif all(value[1] < 0 for value in all_cash_differences): 
+     
         # Cash-on-hand is always decreasing 
         lowest_decrement_day, lowest_decrement_amount = min(all_cash_differences, key=get_second_element) 
+     
         print("[CASH DEFICIT] CASH ON EACH DAY IS LOWER THAN THE PREVIOUS DAY") 
+     
         print(f"[HIGHEST CASH DEFICIT] DAY: {lowest_decrement_day} AMOUNT: SGD{abs(int(lowest_decrement_amount))}.") 
     else: 
         # Cash-on-hand fluctuates 
         deficit_days = [day for day, amount in all_cash_differences if amount < 0] 
+     
         deficit_amounts = [amount for day, amount in all_cash_differences if amount < 0] 
  
         for value in range(len(deficit_days)): 
+         
             print(f"[CASH DEFICIT] DAY: {deficit_days[value]}, AMOUNT: SGD{abs(int(deficit_amounts[value]))}") 
  
         # Sort the top 3 deficits 

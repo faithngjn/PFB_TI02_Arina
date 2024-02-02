@@ -17,6 +17,7 @@ with fp_profits.open(mode="r", encoding="UTF-8", newline="") as file:
 
 # Find the profit difference between all days in data
 def compute_profit_difference(ProfitRecords):
+    
     "function determine the difference in net profit"
     
     # List comprehension to calculate the difference for each day
@@ -61,10 +62,13 @@ def compute_pattern(all_profit_differences):
 
         # Create lists of deficit days and deficit amounts
         deficit_days = [day for day, amount in all_profit_differences if amount < 0]
+        
         deficit_amounts = [amount for day, amount in all_profit_differences if amount < 0]
 
         # Print details of each net profit deficit
         for value in range(len(deficit_days)):
+
+            # Print
             print(f"[NET PROFIT DEFICIT] DAY: {deficit_days[value]}, AMOUNT: SGD{abs(int(deficit_amounts[value]))}")
 
         # Sort the top 3 deficits and print their details

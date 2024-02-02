@@ -247,6 +247,33 @@ def get_second_element(item):
 # Call the function to compute net profit patterns
 PL = calculateExtreme(all_profit_differences)
 
+# with open('summary_report.txt', mode='w') as file:
+    
+#     file.write(str(overhead_value))
+#     file.write(str(coh) + "\n")
+#     file.write((str(PL)))
+   
+
+with open('summary_report.txt', mode='w') as file:
+    
+    # Write overhead value to a new line
+    file.write(str(overhead_value) + "\n")
+
+    # Write each item in COH list to a new line
+    for item in coh[0]:
+        file.write(str(item) + "\n")
+
+    # Write each item in top3results list to a new line
+    for item in coh[1]:
+        file.write(str(item) + "\n")
+
+    # Write each item in PL list to a new line
+    for item in PL[0]:
+        file.write(str(item) + "\n")
+
+    # Write each item in top3amounts list to a new line
+    for item in PL[1]:
+        file.write(str(item) + "\n")
 
 
 

@@ -32,7 +32,7 @@ def compute_profit_difference(ProfitRecords):
 all_profit_differences = compute_profit_difference(ProfitRecords)
 
 # Find whether net profit is always fluctuating, increasing or decreasing
-def compute_pattern(all_profit_differences):
+def calculateExtreme(all_profit_differences):
     "function determine the pattern of net profit and find the data corresponding to the pattern"
     
     # Check if all net profit differences are positive
@@ -93,5 +93,5 @@ def get_second_element(item):
     return item[1]
 
 # Call the function to compute net profit patterns
-compute_pattern(all_profit_differences)
+calculateExtreme(all_profit_differences)
 

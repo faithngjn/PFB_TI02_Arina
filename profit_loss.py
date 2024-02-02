@@ -16,7 +16,7 @@ with fp_profits.open(mode="r", encoding="UTF-8", newline="") as file:
     ProfitRecords = [(int(row[0]), float(row[4])) for row in reader]
 
 # Find the profit difference between all days in data
-def compute_profit_difference(ProfitRecords):
+def calculate_difference(ProfitRecords):
     
     "function determine the difference in net profit"
     
@@ -29,7 +29,7 @@ def compute_profit_difference(ProfitRecords):
     return all_profit_differences
 
 # Call the function to get profit differences
-all_profit_differences = compute_profit_difference(ProfitRecords)
+all_profit_differences = calculate_difference(ProfitRecords)
 
 # Find whether net profit is always fluctuating, increasing or decreasing
 def calculateExtreme(all_profit_differences):

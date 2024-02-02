@@ -65,13 +65,13 @@ def calculateExtreme(all_profit_differences):
         
         deficit_amounts = [amount for day, amount in all_profit_differences if amount < 0]
 
-        # Print details of each net profit deficit
+        # Print details of every net profit deficit
         for value in range(len(deficit_days)):
 
             # Print
             print(f"[NET PROFIT DEFICIT] DAY: {deficit_days[value]}, AMOUNT: SGD{abs(int(deficit_amounts[value]))}")
 
-        # Sort the top 3 deficits and print their details
+        # Sort the top 3 deficits 
         top_3_deficits = sorted(enumerate(deficit_amounts), key=get_second_element, reverse=False)[:3]
         
         for record, (index, deficit_amount) in enumerate(top_3_deficits, start=1):
@@ -88,7 +88,7 @@ def calculateExtreme(all_profit_differences):
                 position = "3RD HIGHEST"
             print(f"[{position} NET PROFIT DEFICIT] DAY: {deficit_day} AMOUNT: SGD{abs(int(deficit_amount))}")
 
-# Helper function to get the second element of a tuple
+# Get the second element of a tuple
 def get_second_element(item):
     return item[1]
 

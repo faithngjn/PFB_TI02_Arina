@@ -74,9 +74,9 @@ def calculateExtreme(all_profit_differences):
         # Sort the top 3 deficits 
         top_3_deficits = sorted(enumerate(deficit_amounts), key=get_second_element, reverse=False)[:3]
         
-        for record, (index, deficit_amount) in enumerate(top_3_deficits, start=1):
+        for record, (number, deficit_amount) in enumerate(top_3_deficits, start=1):
             
-            deficit_day = deficit_days[index]
+            deficit_day = deficit_days[number]
             
             # Determine the position label for the deficit record
             position = f'{record}TH'

@@ -1,138 +1,80 @@
-from pathlib import Path
 import csv
+from pathlib import Path
 
 # Create a file path to the csv file.
-file_path = Path.cwd() / "project_group"/"csv_reports"/ "Profits_And_Loss.csv"
+fp_profits = Path.cwd() / "Profits_And_Loss.csv"
 
-# Read the csv file.
-with file_path.open(mode="r", encoding="UTF-8", newline="") as file:
-    reader = csv.reader(file)
+# Read the csv file
+with fp_profits.open(mode="r", encoding="UTF-8", newline="") as file:
+    
+    reader = csv.reader(file, delimiter=",")
 
-    # skip header
-    next(reader)
+     # Skip header
+    next(reader) 
 
-    # create an empty list for net profit data  
-    Profit_and_loss_data = []
+    # Create an empty list for ProfitRecords
+    ProfitRecords = [(int(row[0]), float(row[4])) for row in reader]
 
-    # each line returns each row as a list
-    for line in reader:
-        Profit_and_loss_data.append(line)
+# Find the profit difference between all days in data
+def compute_profit_difference(ProfitRecords):
+    "function determine the difference in net profit"
+    
+    # List comprehension to calculate the difference for each day
+    all_profit_differences = [
+        (ProfitRecords[item][0], ProfitRecords[item][1] - ProfitRecords[item - 1][1])
+        for item in range(1, len(ProfitRecords))
+    ]
 
-# calculate both the profits and losses that occur
-def calculateDifference(Profit_and_loss_data):
+    return all_profit_differences
 
-    # create empty list to store all net profit deficits and respective days 
-    net_profit_deficit = []
+# Call the function to get profit differences
+all_profit_differences = compute_profit_difference(ProfitRecords)
 
-    # variable is created to store previous days 
-    previousDay_Netprofit = 0
+# Find whether net profit is always fluctuating, increasing or decreasing
+def compute_pattern(all_profit_differences):
+    "function determine the pattern of net profit and find the data corresponding to the pattern"
+    
+    # Check if all net profit differences are positive
+    if all(value[1] > 0 for value in all_profit_differences):
 
-    # Initialize surplus as an empty dictionary
-    surplus = {}
+        # Net profit is increasing
+        highest_increment_day, highest_increment_amount = max(all_profit_differences, key=get_second_element)
 
-    # Iterate through each row of profit and loss data
-    for data in Profit_and_loss_data:
+        print("[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
 
-        # Extract the day number and net profit values
-        day = int(data[0])
+        # Print details of the highest net profit surplus
+        print(f"[HIGHEST NET PROFIT SURPLUS] DAY: {highest_increment_day}, AMOUNT: SGD{abs(int(highest_increment_amount))}.")
 
-        netProfit = float(data[4])
+    # Check to see if all net profit differences are negative
+    elif all(value[1] < 0 for value in all_profit_differences):
 
-        # Ensure calculation starts from day 11 onwards
-        if day > 10:
+        # Net profit is decreasing
+        lowest_decrement_day, lowest_decrement_amount = min(all_profit_differences, key=get_second_element)
 
-            if netProfit < previousDay_Netprofit:
+        print("[NET PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THAN THE PREVIOUS DAY")
 
-                # Calculate deficit
-                deficit = previousDay_Netprofit - netProfit
+        # Print details of the highest net profit deficit
+        print(f"[HIGHEST NET PROFIT DEFICIT] DAY: {lowest_decrement_day} AMOUNT: SGD{abs(int(lowest_decrement_amount))}.")
 
-                # Append day and deficit to list
-                net_profit_deficit.append({day: deficit})
-
-            elif netProfit > previousDay_Netprofit:
-
-                # Calculate surplus
-                surplus[day] = netProfit - previousDay_Netprofit
-
-            # Set new previous day
-            previousDay_Netprofit = netProfit
-
-    return net_profit_deficit, surplus
-
-# Define a function to extract the first value
-def sort_deficits_by_day(item):
-
-    # Get the first value from the item 
-    # Take the first element of the list
-    return list(item.keys())[0]
-
-def sort_deficits_by_amount(item):
-
-    # Get the first value from the item 
-    # Take the first element of the list
-    return list(item.values())[0]
-
-def calculateExtreme(net_profit_deficit, surplus):
-
-
-    # Check if there are only deficits
-    # Identify whether each day's profit is lower than the previous day 
-    if net_profit_deficit and not surplus:
-
-        print('[NET PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THAN THE PREVIOUS DAY')
-
-        # Find the highest net profit deficit
-        highest_deficit_day = max(net_profit_deficit, key=sort_deficits_by_amount)
-        
-        # Extracts the amount of the highest deficit
-        highest_deficit_amount = abs(list(highest_deficit_day.values())[0])
-
-        # Print highest net profit deficit
-        print(f'[HIGHEST NET PROFIT DEFICIT] DAY: {list(highest_deficit_day.keys())[0]} AMOUNT: SGD{highest_deficit_amount}')
-
-    # Check if there are only surpluses
-    elif surplus and not net_profit_deficit:
-
-        
-        print('[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY')
-
-        # Get the highest surplus
-        highest_surplus_day = max(surplus, key=surplus.get)
-
-        # Print highest net profit surplus
-        print(f'[HIGHEST NET PROFIT SURPLUS] DAY: {highest_surplus_day} AMOUNT: SGD{surplus[highest_surplus_day]}')
-
-    # If there are both deficits and surpluses
     else:
-        print('[NET PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THAN THE PREVIOUS DAY')
+        # Net profit fluctuates
 
-        # Sort net profigt deficits
-        sorted_deficits_by_day = sorted(net_profit_deficit, key=sort_deficits_by_day)
+        # Create lists of deficit days and deficit amounts
+        deficit_days = [day for day, amount in all_profit_differences if amount < 0]
+        deficit_amounts = [amount for day, amount in all_profit_differences if amount < 0]
 
-        # Iterate through each deficit
-        for deficit in sorted_deficits_by_day:
+        # Print details of each net profit deficit
+        for value in range(len(deficit_days)):
+            print(f"[NET PROFIT DEFICIT] DAY: {deficit_days[value]}, AMOUNT: SGD{abs(int(deficit_amounts[value]))}")
 
-            # Extract the day from the current deficit dictionary
-            day = list(deficit.keys())[0]
-
-            # Extract the deficit amount from the deficit dictionary
-            amount = abs(int(list(deficit.values())[0]))
-
-            print(f'[NET PROFIT DEFICIT] DAY: {day} AMOUNT: SGD{amount}')
+        # Sort the top 3 deficits and print their details
+        top_3_deficits = sorted(enumerate(deficit_amounts), key=get_second_element, reverse=False)[:3]
         
-        # Sort net profit deficits by amount in descending order
-        sorted_deficits_by_amount = sorted(net_profit_deficit, key=sort_deficits_by_amount, reverse=True)
-        
-        # Iterate through the top three deficits sorted by amount
-        for record, deficit in enumerate(sorted_deficits_by_amount[:3], start=1):
-
-           # Extract day from dictionary 
-            day = list(deficit.keys())[0]
-          
-           # Extract the deficit amount from the dictionary
-            amount = abs(int(list(deficit.values())[0]))
-
-           # Determine the position label for the deficit record
+        for record, (index, deficit_amount) in enumerate(top_3_deficits, start=1):
+            
+            deficit_day = deficit_days[index]
+            
+            # Determine the position label for the deficit record
             position = f'{record}TH'
             if record == 1:
                 position = "HIGHEST"
@@ -140,15 +82,12 @@ def calculateExtreme(net_profit_deficit, surplus):
                 position = "2ND HIGHEST"
             elif record == 3:
                 position = "3RD HIGHEST"
+            print(f"[{position} NET PROFIT DEFICIT] DAY: {deficit_day} AMOUNT: SGD{abs(int(deficit_amount))}")
 
-            print(f'[{position} NET PROFIT DEFICIT] DAY: {day} AMOUNT: SGD{amount}')
+# Helper function to get the second element of a tuple
+def get_second_element(item):
+    return item[1]
 
-        highest_surplus_day = max(surplus, key=surplus.get)
-
-
-# Calculate the net profit deficit
-net_profit_deficit, surplus = calculateDifference(Profit_and_loss_data)
-
-# Print the results
-calculateExtreme(net_profit_deficit, surplus)
+# Call the function to compute net profit patterns
+compute_pattern(all_profit_differences)
 

@@ -4,14 +4,7 @@ from pathlib import Path
 # Create a file path to the csv file. 
 fp_cash = Path.cwd() /"project_group"/"csv_reports"/ "Cash_On_Hand.csv"
  
-# Read the csv file for cash on hand. 
-with fp_cash.open(mode="r", encoding="UTF-8", newline="") as file: 
-    reader = csv.reader(file, delimiter=",") 
-    next(reader)  # Skip header 
- 
-    # Create an empty list for CashRecords 
-    CashRecords = [(int(row[0]), float(row[1])) for row in reader] 
- 
+
 # Find the cash difference between all days in data 
 def compute_cash_on_hand_difference(CashRecords): 
     "function determine the difference in cash on hands"   
